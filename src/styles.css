@@ -4,3 +4,7 @@ svg {
   height: 500px;
   overflow: visible;
 }
+
+body {
+  padding: 50px;
+}

@@ -55,6 +55,21 @@ export default function App() {
       .attr("x", (value, index) => xScale(index))
       .attr("y", -500) // (-500 height of svg for putting back bars to its position for animations)
       .attr("width", xScale.bandwidth())
+      .on("mouseenter", (event, value) => {
+        const index = svg.selectAll(".bar").nodes().indexOf(event.target);
+        svg
+          .selectAll(".tooltip")
+          .data([value])
+          .join("text")
+          .attr("class", "tooltip")
+          .text(value)
+          .attr("x", xScale(index) + xScale.bandwidth() / 2)
+          .attr("y", yScale(value) - 8)
+          .attr("text-anchor", "middle")
+          .transition()
+          .attr("opacity", 1);
+      })
+      .on("mouseleave", () => svg.select(".tooltip").remove())
       .transition() // for animating bars, put before height
       .attr("fill", colorScale)
       .attr("height", (value) => 500 - yScale(value));
