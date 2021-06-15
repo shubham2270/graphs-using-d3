@@ -10,8 +10,7 @@ import {
 
 import "./styles.css";
 
-export default function App() {
-  const [data, setData] = useState([25, 30, 45, 60, 20, 65, 75]);
+export default function App({ data }) {
   const svgRef = useRef();
 
   useEffect(() => {
@@ -21,7 +20,7 @@ export default function App() {
     // Scales graph horizontly
     const xScale = scaleBand()
       .domain(data.map((value, index) => index)) // counts of data
-      .range([0, 800])
+      .range([0, 800]) // changing it for responsive
       .padding(0.5); // canvas with from 0 to max width
 
     // Scales graph vertically
@@ -82,17 +81,6 @@ export default function App() {
         <g className="y-axis" />
       </svg>
       <br /> <br /> <br />
-      <button onClick={() => setData(data.map((value) => value + 5))}>
-        Update Data
-      </button>
-      <button onClick={() => setData(data.filter((value) => value < 35))}>
-        Filter Data
-      </button>
-      <button
-        onClick={() => setData([...data, Math.floor(Math.random() * 130 + 20)])}
-      >
-        Addd random number
-      </button>
     </div>
   );
 }
